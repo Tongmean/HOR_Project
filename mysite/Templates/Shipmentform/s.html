@@ -1,0 +1,203 @@
+{% extends "Templatelayout.html" %}
+ 
+{% block content %}
+<section class="bg-info" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg')">
+    <div class="container" style="background-image: url('')">
+        <div class="card  " style="background-image: url('https://cdn.pixabay.com/photo/2018/02/17/14/15/template-3160023_1280.jpg')">
+            <div class="card-header text-center text-info bg-secondary" style="background-image: url('')">
+                <h1>Discrepancy Shipment Form Record</h1>
+            </div>
+            <div  class="card-body" style="background-image: url('')">
+                <form Action='Addform' method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="card-header text-center text-success " style="background-color: #ccc">
+                        <h4>Shipment Imformation</h4>
+                    </div>     
+                    <!-- 3 item per row-->
+                    
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label" for="">Area</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <select onchange="AreaCheck(this)" class="form-select" name="areaid">
+                                    <option value="">Choose...</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <label for="" class="form-label">Fight Number</label>
+                                    <input type="text" id="" name="fightnumber" class="form-control" >
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label" for="">Mode of Transportation</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <select class="form-select" name="modeoftransportationid" id="" >
+                                    <option value="">Choose...</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Forwarder</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="forwarder" rows="1"></input>
+                            </div>
+                            
+                            <div class="col">
+                                <label for="" class="form-label">Shipper Name</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="shippername" rows="1"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Shipper Country</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="shippercountry" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Customs Declaration Number</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="customs_declaration_number" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Invoice number</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="invoice_number" rows="1"></input>
+                            </div>
+                        </div>   
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Pick Ticket or Delivery note Number</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">MAWB / HAWB / Bill of Landing</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="mawb_hawb_bill_of_landing" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Supplier Name</label>
+                                <input class="form-control" name="suppliername" rows="1"></input>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Part Number</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="partnumber" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Invoice Quantity</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="invoice_quantity" rows="1"></input>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Unit price($)</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="unitprice_field" rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Total package</label>
+                                <input class="form-control" name="total_package" rows="1"></input>
+                            </div>    
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card-header text-center text-success " style="background-color: #ccc">
+                        <h4>Discrepancy Information/ Concerning Person / Attachment</h4>
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Date of incident</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input type="date" class="form-control" name="dateofincident" rows="1" ></input>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="">Type of Discrepancy</label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                            
+                                <select onchange="noCheck(this);" class="form-select" name="typeofdiscrepancyid">
+                                    <option value="">Choose...</option>
+                                
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <!---->
+                                    <label for="" class="form-label">OTHER_text</label>
+                                    <input type="text" id="car" name="other_freetext" class="form-control" /><br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="" class="form-label">Detail of Discrepancy </label>
+                                <input class="form-control" name="detailofdiscrepancy"  rows="1"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Requester Name </label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="requestername" rows="1" placeholder="Email Address"></input>
+                            </div>
+                            <div class="col">
+                                <label for="" class="form-label">Buyer Name </label>
+                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
+                                <input class="form-control" name="buyer_name" rows="1" placeholder="Email Address"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label" for="">Shipping Documents</label>
+                                <input type="file" name="shipping_documents_fie" class="form-control" >
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="">Other_File </label>
+                                <input type="file" name="other_file" class="form-control" >
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!--Transaction Log-->
+                        <input class="form-control" name="submitby" rows="1" hidden </input>
+                        <input class="form-control" name="submitdate" rows="1" value="" placeholder="YYYY-MM-dd" hidden></input>
+                        <input class="form-control" name="processing_time" rows="1" hidden></input>
+                        <input class="form-control" name="status" rows="1" hidden></input>
+                        <input class="form-control" name="status1" rows="1" hidden></input>
+                        <input class="form-control" name="status2" rows="1" hidden></input>
+                        <input class="form-control" name="status3" rows="1" hidden></input>
+                    </div>
+                    <br>
+                    <div class="card-body "  style="background-color: #ccc ;background-image: url('https://cdn.pixabay.com/photo/2016/07/12/13/37/crane-homes-1512044_1280.jpg')">
+                        <div class="row">
+                            <div class="col d-flex justify-content-start ">
+                                <a href="#" type="button" class="btn btn-warning ">Back</a>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <button type="button" class="btn btn-success">Save</button>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>    
+                <button onclick="window.print()">Print this page</button>
+                <br>
+                <div class="card-footer text-muted bg-light">
+                Datetime
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
