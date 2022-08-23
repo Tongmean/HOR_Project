@@ -1,5 +1,20 @@
-{% extends "Shipmentformlayout.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+{% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<div class="navbar " style="background-image:linear-gradient(90deg, #42948e 0%, #0fcd58 100%)">
+    <div class="col text-start">
+        <h3 class="ps-2 text-white ms-5">Discrepancy Portal</h3>
+    </div>
+</div>
+
 <section class="bg-info" style="background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg')">
     <div class="container" style="background-image: url('')">
         <div class="card  " style="background-image: url('https://cdn.pixabay.com/photo/2018/02/17/14/15/template-3160023_1280.jpg')">
@@ -19,8 +34,8 @@
                             <div class="col">
                                 <label class="form-label" for="">Area</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <select onchange="AreaCheck(this)" class="form-select" name="areaid">
-                                    <option value="" selected>Choose...</option>
+                                <select class="form-select" name="areaid">
+                                    <option value="{{AddData.areaid.areaid}}" selected>You selected "{{AddData.areaid.area}}"</option>
                                     {% for area in areas%}
                                     <option value="{{area.areaid}}">{{area.area}}</option>
                                     {% endfor%}
@@ -29,7 +44,7 @@
                             <div class="col">
                                 <div>
                                     <label for="" class="form-label">Fight Number</label>
-                                    <input type="text" id="" name="fightnumber" class="form-control" >
+                                    <input type="text" id="" name="fightnumber" class="form-control" value="{{AddData.fightnumber}}">
                                 </div> 
                             </div>
                         </div>
@@ -38,7 +53,7 @@
                                 <label class="form-label" for="">Mode of Transportation</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
                                 <select class="form-select" name="modeoftransportationid" id="" >
-                                    <option value="">Choose...</option>
+                                    <option value="{{AddData.modeoftransportationid.modeoftransportationid}}" selected>You selected "{{AddData.modeoftransportationid.modeoftransportation}}"</option>
                                     {% for Mode in Modes%}
                                     <option value="{{Mode.modeoftransportationid }}">{{Mode.modeoftransportation}}</option>
                                     {% endfor %}
@@ -47,64 +62,64 @@
                             <div class="col">
                                 <label for="" class="form-label">Forwarder</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="forwarder" rows="1"></input>
+                                <input class="form-control" name="forwarder" value="{{AddData.forwarder}}"></input>
                             </div>
                             
                             <div class="col">
                                 <label for="" class="form-label">Shipper Name</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="shippername" required></input>
+                                <input class="form-control" name="shippername" value="{{AddData.shippername}}"></input>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label">Shipper Country</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="shippercountry" required></input>
+                                <input class="form-control" name="shippercountry" value="{{AddData.shippercountry}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Customs Declaration Number</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="customs_declaration_number" rows="1"></input>
+                                <input class="form-control" name="customs_declaration_number" value="{{AddData.customs_declaration_number}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Invoice number</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="invoice_number" rows="1"></input>
+                                <input class="form-control" name="invoice_number" value="{{AddData.invoice_number}}"></input>
                             </div>
                         </div>   
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label">Pick Ticket or Delivery note Number</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="pickticketor" required></input>
+                                <input class="form-control" name="pickticketor" value="{{AddData.pickticketor}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">MAWB / HAWB / Bill of Landing</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="mawb_hawb_bill_of_landing" rows="1"></input>
+                                <input class="form-control" name="mawb_hawb_bill_of_landing" value="{{AddData.mawb_hawb_bill_of_landing}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Supplier Name</label>
-                                <input class="form-control" name="suppliername" rows="1"></input>
+                                <input class="form-control" name="suppliername" value="{{AddData.suppliername}}"></input>
                             </div>
                         </div> 
                         <div class="row">
                             <div class="col">
                                 <label for="" class="form-label">Part Number</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" name="partnumber" required></input>
+                                <input class="form-control" name="partnumber" value="{{AddData.partnumber}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Invoice Quantity</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input type="number" class="form-control" name="invoice_quantity" placeholder="Please Enter number"></input>
+                                <input class="form-control" name="invoice_quantity" value="{{AddData.invoice_quantity}}"></input>
                             </div>
                             <div class="col">
                                 <label class="form-label" for="">Invoice UOM</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
                                 <select class="form-select" name="damageuomid" id="" >
-                                    <option value="" selected>Choose...</option>
+                                    <option value="{{AddData.damageuomid.damageuomid}}" selected>You selected "{{AddData.damageuomid.damageuom}}"</option>
                                     {% for Invoice in Invoices %}
                                     <option value="{{Invoice.damageuomid}}">{{Invoice.damageuom}}</option>
                                     {% endfor %}
@@ -115,11 +130,11 @@
                             <div class="col">
                                 <label for="" class="form-label">Unit price($)</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input class="form-control" type="number" name="unitprice_field" required placeholder="Please Enter number"></input>
+                                <input class="form-control" name="unitprice_field" value="{{AddData.unitprice_field}}"></input>
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Total package</label>
-                                <input type="number" class="form-control" name="total_package" required placeholder="Please Enter number"></input>
+                                <input class="form-control" name="total_package" value="{{AddData.total_package}}"></input>
                             </div>    
                         </div>
                     </div>
@@ -131,15 +146,13 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                                <label for="" class="form-label">Date of incident</label>
-                                <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
-                                <input type="date" class="form-control" name="dateofincident" rows="1" required></input>
+                                {{form.dateofincident|as_crispy_field}}
                             </div>
                             <div class="col">
                                 <label class="form-label" for="">Type of Discrepancy</label>
                                 <span data-client-id="required_indicator" class="css-skcghl ekxsfat1" style="color:red" >*</span>
                                 <select class="form-select" name="typeofdiscrepancyid" id="" >
-                                    <option value="">Choose...</option>
+                                    <option value="{{AddData.typeofdiscrepancyid.typeofdiscrepancyid}}">You selected "{{AddData.typeofdiscrepancyid.type_of_discrepancy}}"</option>
                                     {% for Type in Types %}
                                     <option value="{{Type.typeofdiscrepancyid}}">{{Type.type_of_discrepancy}}</option>
                                     {% endfor %}
@@ -147,33 +160,29 @@
                             </div>
                             <div class="col">
                                 <label for="" class="form-label">Detail of Discrepancy </label>
-                                <input class="form-control" name="detailofdiscrepancy" ></input>
+                                <input class="form-control" name="detailofdiscrepancy"  rows="1" value="{{AddData.detailofdiscrepancy}}"></input>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label class="form-label" for="">Shipping Documents</label>
-                                <input type="file" name="shipping_documents_fie" class="form-control" >
+                             {{form.shipping_documents_fie|as_crispy_field}}
                             </div>
                             <div class="col">
-                                <label class="form-label" for="">Other_File </label>
-                                <input type="file" name="other_file" class="form-control" >
+                                {{form.other_file|as_crispy_field}}
                             </div>
                         </div>
                     </div>
                     <div>
                         <!--Transaction Log-->
-                        <input class="form-control" name="submitdate" rows="1" value="{{WDweek}}" placeholder="YYYY-MM-dd" hidden></input>
-                        <input class="form-control" name="status" rows="1" hidden></input>
-                        <input class="form-control" name="status1" rows="1" hidden></input>
+                        <!-- <input class="form-control" name="status" value="Submitted" hidden></input> -->
+                        <input class="form-control" name="" value="Submitted" hidden></input>
                     </div>
                     <br>
                     <div class="card-body "  style="background-color: #ccc ;background-image: url('https://cdn.pixabay.com/photo/2016/07/12/13/37/crane-homes-1512044_1280.jpg'); height:80px;">
                         <div class="row ">
                             <div class="d-flex justify-content-end p-2">
-                                <a href="Shipmentform" type="button" class="btn btn-warning m-1">Back</a>
-                                <button type="Submit" name="save" class="btn btn-success m-1">Save</button>
-                                <button type="Submit" name="submit" class="btn btn-primary m-1">Submit</button>
+                                <input name="action" onclick="history.go(-1);  return false;" class="btn btn-warning m-1" type="submit"  value="Cancel"/>
+                                <button type="Submit" class="btn btn-primary m-1">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -187,4 +196,5 @@
         </div>
     </div>
 </section>
-{% endblock %}
+
+</html>

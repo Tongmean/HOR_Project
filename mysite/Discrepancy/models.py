@@ -6,7 +6,10 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+import datetime
+currentdate = datetime.date.today()
+formatDate = currentdate.strftime("%A/%B/%Y")
+WDweek = currentdate.strftime("%Y-%m-%d")
 
 class InvoiceUom(models.Model):
     damageuomid = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase.
@@ -15,28 +18,6 @@ class InvoiceUom(models.Model):
     class Meta:
         managed = False
         db_table = 'Invoice UOM'
-
-
-class InvoiceUom(models.Model):
-    damageuomid = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase.
-    damageuom = models.TextField(db_column='DamageUOM', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-
-    class Meta:
-        managed = False
-        db_table = 'Invoice-UOM'
-
-
-class InvoiceUom(models.Model):
-    damageuomid = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase.
-    damageuom = models.TextField(db_column='DamageUOM', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    damageuomid_0 = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase. Field renamed because of name conflict.
-    damageuom_0 = models.TextField(db_column='DamageUOM', blank=True, null=True)  # Field name made lowercase. Field renamed because of name conflict. This field type is a guess.
-    damageuomid_1 = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase. Field renamed because of name conflict.
-    damageuom_1 = models.TextField(db_column='DamageUOM', blank=True, null=True)  # Field name made lowercase. Field renamed because of name conflict. This field type is a guess.
-
-    class Meta:
-        managed = False
-        db_table = 'Invoice_UOM'
 
 
 class JdAction(models.Model):
@@ -73,6 +54,15 @@ class JdClaimclass(models.Model):
     class Meta:
         managed = False
         db_table = 'JD_Claimclass'
+
+
+class JdDamageuom(models.Model):
+    damageuomid = models.AutoField(db_column='DamageUOMID', primary_key=True)  # Field name made lowercase.
+    damageuom = models.TextField(db_column='DamageUOM', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'JD_DamageUOM'
 
 
 class JdFinancialtype(models.Model):
@@ -436,15 +426,6 @@ class Partnumber(models.Model):
         db_table = 'PartNumber'
 
 
-class Partgroup(models.Model):
-    part_groupid = models.AutoField(db_column='Part_GroupID', primary_key=True)  # Field name made lowercase.
-    part_group = models.TextField(db_column='Part_Group', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-
-    class Meta:
-        managed = False
-        db_table = 'Partgroup'
-
-
 class TdAction(models.Model):
     actionid = models.AutoField(db_column='ActionID', primary_key=True)  # Field name made lowercase.
     action = models.TextField(db_column='Action', blank=True, null=True)  # Field name made lowercase.
@@ -463,22 +444,6 @@ class TdArea(models.Model):
         db_table = 'TD_Area'
 
 
-class TdCauseAction(models.Model):
-    cause_actionid = models.AutoField(db_column='Cause&ActionID', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    reviewid = models.IntegerField(db_column='ReviewID', blank=True, null=True)  # Field name made lowercase.
-    rootcause = models.TextField(db_column='Rootcause', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    action_number = models.IntegerField(db_column='Action_Number', blank=True, null=True)  # Field name made lowercase.
-    reference_documents = models.TextField(db_column='Reference documents', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    report_by = models.CharField(db_column='Report_by', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    report_date = models.DateField(db_column='Report_Date', blank=True, null=True)  # Field name made lowercase.
-    processing_time = models.DateField(db_column='Processing_time', blank=True, null=True)  # Field name made lowercase.
-    status = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'TD_Cause&Action'
-
-
 class TdDiscrepancyrecordform(models.Model):
     transaction_number = models.AutoField(db_column='Transaction_number', primary_key=True)  # Field name made lowercase.
     areaid = models.ForeignKey(TdArea, models.DO_NOTHING, db_column='AreaID', blank=True, null=True)  # Field name made lowercase.
@@ -494,14 +459,14 @@ class TdDiscrepancyrecordform(models.Model):
     suppliername = models.TextField(db_column='SupplierName', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     partnumber = models.CharField(db_column='PartNumber', max_length=255, blank=True, null=True)  # Field name made lowercase.
     invoice_quantity = models.FloatField(db_column='Invoice Quantity', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    damageuomid = models.CharField(db_column='DamageUOMID', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    damageuomid = models.ForeignKey(JdDamageuom, models.DO_NOTHING, db_column='DamageUOMID', blank=True, null=True)  # Field name made lowercase.
     unitprice_field = models.FloatField(db_column='Unitprice($)', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
     total_package = models.IntegerField(db_column='Total_package', blank=True, null=True)  # Field name made lowercase.
     dateofincident = models.DateField(db_column='DateofIncident', blank=True, null=True)  # Field name made lowercase.
     typeofdiscrepancyid = models.ForeignKey('TdTypeofdiscrepancy', models.DO_NOTHING, db_column='TypeofDiscrepancyID', blank=True, null=True)  # Field name made lowercase.
-    detailofdiscrepancy = models.FileField(db_column='DetailofDiscrepancy', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    shipping_documents_fie = models.FileField(db_column='Shipping_Documents_fie', blank=True, null=True)  # Field name made lowercase.
-    other_file = models.TextField(blank=True, null=True)
+    detailofdiscrepancy = models.TextField(db_column='DetailofDiscrepancy', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    shipping_documents_fie = models.FileField(db_column='Shipping_Documents_fie', blank=True, null=True, upload_to='File/')  # Field name made lowercase.
+    other_file = models.FileField(blank=True, null=True, upload_to='Other-File/')
     submitby = models.CharField(db_column='Submitby', max_length=50, blank=True, null=True)  # Field name made lowercase.
     submitdate = models.DateField(db_column='SubmitDate', blank=True, null=True)  # Field name made lowercase.
     status = models.CharField(db_column='Status', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -519,7 +484,7 @@ class TdSupervisorData(models.Model):
     reviewid = models.IntegerField(db_column='ReviewID', blank=True, null=True)  # Field name made lowercase.
     rootcause = models.TextField(db_column='Rootcause', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     actionid = models.ForeignKey(TdAction, models.DO_NOTHING, db_column='ActionID', blank=True, null=True)  # Field name made lowercase.
-    reference_documents = models.TextField(db_column='Reference documents', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    reference_documents = models.FileField(db_column='Reference documents', blank=True, null=True, upload_to='Document/')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     report_by = models.CharField(db_column='Report_by', max_length=255, blank=True, null=True)  # Field name made lowercase.
     report_date = models.DateField(db_column='Report_Date', blank=True, null=True)  # Field name made lowercase.
     processing_time = models.DateField(db_column='Processing_time', blank=True, null=True)  # Field name made lowercase.
@@ -528,18 +493,15 @@ class TdSupervisorData(models.Model):
     class Meta:
         managed = False
         db_table = 'TD_Supervisor-data'
-
-
-class TdTransactionreview(models.Model):
-    transactionreviewid = models.AutoField(db_column='TransactionReviewID', primary_key=True)  # Field name made lowercase.
-    transactionreview = models.TextField(db_column='Transactionreview', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    transaction_number = models.IntegerField(db_column='Transaction_number', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'TD_TransactionReview'
-
-
+        
+    def process(self):
+        a = self.report_date
+        b = self.transaction_number.submitdate
+        Tran = a - b
+        return Tran
+    def save(self, *args, **kwargs):
+        self.status = str(self.process())
+        super(TdSupervisorData, self).save(*args, **kwargs)   
 class TdTypeofdiscrepancy(models.Model):
     typeofdiscrepancyid = models.AutoField(db_column='TypeofDiscrepancyID', primary_key=True)  # Field name made lowercase.
     type_of_discrepancy = models.TextField(db_column='Type of Discrepancy', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. This field type is a guess.

@@ -1,0 +1,19 @@
+def update(request, pk):
+    update = TdDiscrepancyrecordform.objects.get(transaction_number = pk)
+    form = ShipmentForm(instance=update)
+  
+    if request.method == 'POST':
+        form = ShipmentForm(request.POST, instance=update)
+        if form.is_valid():
+            form.save()    
+            return redirect('Retrieve')
+
+- เพิ่มสอง step transaction step
+- Mandatory และเครื่อง*
+- Delete UI TRANSACTION LOG
+- ไฟล์สามารถกดไปดูได้
+- View data เป็น spreadsheet
+
+สวัสดี พี่
+พี่ว่างไหม คับ
+ผมจะเดินไปหา

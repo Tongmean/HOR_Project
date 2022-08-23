@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,12 +21,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--DataTable-->
     <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <!--Icon-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/a4f690b883.js" crossorigin="anonymous"></script>
 
     <style>
         .footer-section {
             width: 100%;
+            position: absolute;
             bottom: 0;
         }
 
@@ -47,7 +50,7 @@
             padding-bottom: 20px;
             transition: 0.4s;
             cursor: pointer;
-            
+
         }
 
         li:hover {
@@ -58,27 +61,26 @@
         li>a {
             padding-left: 25px;
         }
+
         li>i {
             padding-left: 10px;
         }
+
         div.dataTables_wrapper {
             margin: 0 auto;
         }
+
         .span {
             display: inline-block;
             width: 130px;
             height: 100px;
-            box-shadow:5px 2px #227c54;
+            box-shadow: 5px 2px #227c54;
             background-image: linear-gradient(90deg, #227c54 0%, #50a7c2 100%);
             border-radius: 10px;
             padding-bottom: 50px;
             margin-bottom: 10px;
         }
-
-
-
     </style>
-
 </head>
 
 <body>
@@ -104,33 +106,7 @@
                     </h6>
                     <br>
                     <br>
-                    <div class="ps-3">
-                        <li>
-                            <i class="fa fa-home" style="font-size:24px"></i>
-                            <a href="Home" style="text-decoration:none ;color:#000 ;">&nbsp;Home</a>
-                        </li>
-                        <li>
-                            <i class="material-icons">account_circle</i>
-                            <a href="#" style="text-decoration:none ;color:#000 ;">&nbsp;Profile</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-address-book" style="font-size:24px"></i>
-                            <a href="Shipmentform" style="text-decoration:none ;color:#000 ;">&nbsp;Shipment Record</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-bar-chart-o" style="font-size:24px"></i>
-                            <a href="Dashboard" style="text-decoration:none ;color:#000">&nbsp;Dashboard</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-gear" style="font-size:24px"></i>
-                            <a href="#" style="text-decoration:none ;color:#000">&nbsp;User management </a>
-                        </li>
-                        <hr>
-                        <li>
-                            <i class="fa fa-sign-out" style="font-size:24px"></i>
-                            <a href="#" style="text-decoration:none ;color:#000">Log out </a>
-                        </li>
-                    </div>
+                    {% include 'Sidebar.html' %} 
                 </div>
             </div>
         </div>
@@ -139,36 +115,32 @@
     </div>
 
 
-   
+    <!--Main Display-->
     <div id="main">
         <div class="navbar" style="background-image:linear-gradient(90deg, #42948e 0%, #0fcd58 100%)">
-            <button onclick="w3_open()" id="openNav" class="btn text-white" style="font-size: 25px" >&#9776;</button>
+            <button onclick="w3_open()" id="openNav" class="btn text-white" style="font-size: 25px">&#9776;</button>
             <div class="col text-start">
                 <h3 class="ps-2 text-white">Discrepancy Portal</h3>
             </div>
         </div>
-        <!--Main Display-->
         <div id="chet-chet" class="">
-            <div>
+            <div class="card">
                 {% block content %}
-                
                 {% endblock %}
             </div>
-             <!--Footer-->
-            <section id="footer-section" class="footer-section">
-                <div class="row">
-                    <div style="height: 80px" class="bg-secondary co-12 d-flex flex-column justify-content-center align-item-center">
-                        <a style="text-decoration: none" class="text-white text-center">© 2022 Copyright: Western Digital</a>
-                    </div>
-                </div>
-            </section>
-            <!--Footer-->
         </div>
-        <!--Main Display-->
+        <!--Footer-->
+        <!-- <section id="footer-section" class="footer-section">
+            <div class="row">
+                <div style="height: 80px"
+                    class="bg-secondary co-12 d-flex flex-column justify-content-center align-item-center">
+                    <a style="text-decoration: none" class="text-white text-center">© 2022 Copyright: Western
+                        Digital</a>
+                </div>
+            </div>
+        </section>  -->
+        <!--Footer-->
     </div>
-    
-
-
     <script>
         function w3_open() {
             document.getElementById("main").style.marginLeft = "20%";
@@ -179,9 +151,7 @@
         }
         function w3_close() {
             document.getElementById("main").style.marginLeft = "0%";
-            document.getElementById("footer-section").style.marginLeft = "0%";
             document.getElementById("main").style.width = "100%";
-            document.getElementById("footer-section").style.width = "100%";
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("openNav").style.display = "inline-block";
         }
@@ -204,10 +174,26 @@
                 
         });
     </script> -->
+    <!--message Disappear-->
+    <script text="javascript">
+        setTimeout(fade_out, 1500);
+        function fade_out() {
+            $("#message").fadeOut().empty();
+        }
+
+    </script>
+    <!--DataTable-->
     <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable({
-                scrollX: true,
+        $("document").ready(function () {
+            $("#Action_Shipmentform").dataTable({
+                searching: true,
+            });
+        });
+    </script>
+    <script>
+        $("document").ready(function () {
+            $("#Actionlist").dataTable({
+                searching: true,
             });
         });
     </script>

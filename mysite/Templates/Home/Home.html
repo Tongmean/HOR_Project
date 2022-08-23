@@ -24,24 +24,6 @@
     <script src="https://kit.fontawesome.com/a4f690b883.js" crossorigin="anonymous"></script>
     <!-- Google Chart -->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-  
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work',     4],
-            ['Eat',      2],
-            ['Commute',  2],
-            ['Watch TV', 2],
-        
-          ]);
-
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-          chart.draw(data);
-        }
-    </script>
 
     <style>
         .footer-section {
@@ -124,38 +106,7 @@
                     </h6>
                     <br>
                     <br>
-                    <div class="ps-3">
-                        <li>
-                            <i class="fa fa-home" style="font-size:24px"></i>
-                            <a href="Home" style="text-decoration:none ;color:#000 ;">&nbsp;Home</a>
-                        </li>
-                        <li>
-                            <i class="material-icons">account_circle</i>
-                            <a href="#" style="text-decoration:none ;color:#000 ;">&nbsp;Profile</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-address-book" style="font-size:24px"></i>
-                            <a href="Shipmentform" style="text-decoration:none ;color:#000 ;">&nbsp;Shipment Record</a>
-                        </li>
-                        <li>
-
-                            <i class='fas fa-file-alt' style='font-size:24px'></i>
-                            <a href="#" style="text-decoration:none ;color:#000; margin-left: 10px;">Cause&Action Data</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-bar-chart-o" style="font-size:24px"></i>
-                            <a href="#" style="text-decoration:none ;color:#000">&nbsp;Dashboard</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-gear" style="font-size:24px"></i>
-                            <a href="#" style="text-decoration:none ;color:#000">&nbsp;User management </a>
-                        </li>
-                        <hr>
-                        <li>
-                            <i class="fa fa-sign-out" style="font-size:24px"></i>
-                            <a href="#" style="text-decoration:none ;color:#000">Log out </a>
-                        </li>
-                    </div>
+                    {% include 'Sidebar.html' %} 
                 </div>
             </div>
         </div>
@@ -188,51 +139,41 @@
                     <div class="container row p-2">
                         <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
                             <p>Today Cases</p>
-                            <h2>12</h2>
+                            <h2>{{Today}}</h2>
                         </div>
                         <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
                             <p>Weekly Cases</p>
-                            <h2>12</h2>
+                            <h2>{{week}}</h2>
                         </div>
                         <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
                             <p>Monly Cases</p>
-                            <h2>12</h2>
+                            <h2>{{month}}</h2>
                         </div>
                         <div class="col-sm h-30 border m-4 item-card rounded-3 text-white p-3 ">
                             <p>Yearly Cases</p>
-                            <h2>12</h2>
+                            <h2>{{year}}</h2>
                         </div>
                     </div>
                 </div>
         </div>
-
         <div class="container-fluid mt-5">
-            <div class="row">
-                <h3>
-                    <i class="fa fa-line-chart" style="font-size:24px"></i> Chart
-                </h3>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6 shadow">
-                    <div>
-                        <canvas id="myChart" ></canvas>
-                    </div>    
+            <div class="row shadow">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center py-2">
+                        <h4 class="py-1"><i class="fa fa-bar-chart" style="font-size:27px"></i>
+                        </i>Chart Overview</h4>
+                    </div>
                 </div>
-                <div class="col-sm-6 shadow" id="piechart">
+                <div class="col-6 shadow text-center" id="myPlot"  >
+                    <!--bar-->
+                </div>
+                <div class="col-6 shadow text-center" id="myPlot1" >
+                    <!--Pie-->
                 </div>
             </div>  
+
         </div>
 
-        <!--Footer-->
-        <!-- <section id="footer-section" class="footer-section">
-            <div class="row">
-                <div style="height: 60px" class="bg-secondary co-12 d-flex flex-column justify-content-center align-item-center">
-                    <a style="text-decoration: none" class="text-white text-center">© 2022 Copyright: Western Digital</a>
-                </div>
-            </div>
-        </section> -->
-        <!--Footer-->
     </div>
     <script>
         function w3_open() {
@@ -264,22 +205,33 @@
     <!--ChartJs-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <!-- <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-                
-        });
-    </script> -->
+    <!--Plotly-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable({
-                scrollX: true,
-            });
-        });
+        var xArray = ["Shortage Quantity", "Over Quantity", "Wrong Parts", "Mixed Parts", "PO problems"];
+        var yArray = [{{short}}, {{Over}}, {{Wrong}}, {{Mix}}, {{Po}}];
+        
+        var data = [{
+          x:xArray,
+          y:yArray,
+          type:"bar"
+        }];
+        
+        var layout = {title:"Type of Discrepancy"};
+        
+        Plotly.newPlot("myPlot", data, layout);
     </script>
     <script>
-        var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-        var yValues = [55, 49, 44, 24, 15];
+        var xArray = ["Shortage Quantity", "Over Quantity", "Wrong Parts", "Mixed Parts", "PO problems"];
+        var yArray = [{{short}}, {{Over}}, {{Wrong}}, {{Mix}}, {{Po}}];
+        var layout = {title:"Type of Discrepancy"};
+        var data = [{labels:xArray, values:yArray, type:"pie"}];
+        Plotly.newPlot("myPlot1", data, layout);
+    </script>
+
+    <script>
+        var xValues = ["Shortage Quantity", "Over Quantity", "Wrong Parts", "Mixed Parts", "PO Problem"];
+        var yValues = [1, 2, 2, 2, 20];
         var barColors = ["red", "green","blue","orange","brown"];
         
         new Chart("myChart", {
@@ -295,7 +247,7 @@
             legend: {display: false},
             title: {
               display: true,
-              text: "World Wine Production 2018"
+              text: "Type of Discrepancy"
             },
             scales: {
               xAxes: [{ticks: {min: 10, max:60}}]

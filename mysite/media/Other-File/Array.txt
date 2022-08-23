@@ -1,0 +1,58 @@
+
+
+
+students = [
+ {
+ id:"",
+ name: "",
+ gender: "",
+ phone: [
+  -1
+  -2
+ ]
+ },
+
+
+{
+ id:"",
+ name: "",
+ gender: "",
+ phone: [
+  -1
+  -2
+ ]
+ },
+
+{
+ id:"",
+ name: "",
+ gender: "",
+ phone: [
+  -1
+  -2
+ ]
+ },
+]
+
+
+for (let i=0; i<=students.length()-1; i++)
+{
+ students[i].id
+ students[i].name
+ 
+ for(let j=0; j<=student[i].phone.length()-1; i++)
+ student[i].phone[j]
+
+}
+
+
+[
+ [
+  [],
+ ],
+]
+
+
+
+
+

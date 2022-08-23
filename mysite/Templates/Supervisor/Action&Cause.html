@@ -1,0 +1,68 @@
+{% extends "Superlayout.html" %}
+{% block content %}
+<div class="table-responsive">
+    <div class="table-responsive">
+        <table id="Actionlist" class="table table-striped display  nowrap" style="width:100%">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th scope="col">ActionID</th>
+                    <th scope="col">Transaction_number</th>
+                    <th scope="col">Rootcause</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Report_date</th>
+                    <th scope="col">Report_by</th>
+                    <th scope="col">Processing_time</th>
+                    
+                    <th scope="col">View</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for record in records %}
+                <tr class="">
+                    <td style='text-align: center'>{{record.cause_actionid}}</td>
+                    <td clas>{{record.transaction_number.transaction_number}}</td>
+                    <td>{{record.rootcause}}</td>
+                    <td>{{record.actionid.action}}</td>
+                    <td>{{record.report_date}}</td>
+                    <td>{{record.report_by}}</td>
+                    <td>{{record.process}}</td>
+                    <td><a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{record.cause_actionid}}">Detail</a></td>
+                    <div class="modal fade" id="exampleModal{{record.cause_actionid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><p class="py-2">Action Detail</p></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body " style="background-color:#ededeb; ">
+                                    <div class="container " > 
+                                        <div class="row text-center  ">
+                                            <div class="col">
+                                                <h5>Action ID: {{record.cause_actionid}}</h5>
+                                                <h5>Transaction_Number: {{record.transaction_number.transaction_number}}</h5>
+                                                <h5>Rootcause: {{record.rootcause}}</h5>
+                                                <h5>Action: {{record.actionid.action}}</h5>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Report Date: {{record.report_date}}</h5>
+                                                <h5>Report_by: {{record.report_by}}</h5>
+                                                <h5>Processing_time: {{record.process}}</h5>
+                                                <h6><a href="/media/{{record.reference_documents}}">{{record.reference_documents|default:""}}</a></h6>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
